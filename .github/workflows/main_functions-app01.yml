@@ -56,6 +56,11 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_002544C916EC47CD8E54397E2A7855F8 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CA71D4BB8F684E3DAAFE18AF05F7CF8D }}
 
+      - name: Debug Azure account
+        run: |
+          az account show
+          az functionapp list --query "[].name"
+
       - name: Deploy to Azure Functions
         uses: Azure/functions-action@v1
         with:
