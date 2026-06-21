@@ -63,10 +63,10 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_30254B92DE12489D9C0C167D9C057C38 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C944FC6EF804483C954771C615AA0334 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_48C1821FCE5E4CBE8E6136AE06256C5E }}
-
+          # Тебе нужно будет создать один секрет AZURE_CREDENTIALS 
+          # с JSON-объектом внутри (Client ID, Tenant ID, Subscription ID)
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+            
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp

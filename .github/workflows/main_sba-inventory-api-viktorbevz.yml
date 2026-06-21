@@ -71,10 +71,10 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_5E9973020CE34348AE6E5FD8C3776CCB }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E5784296887C4C5EB1AC02D2E86D7234 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_0DDC8A7A21224A06B23ADD0F38B7EA1A }}
-
+          # Тебе нужно будет создать один секрет AZURE_CREDENTIALS 
+          # с JSON-объектом внутри (Client ID, Tenant ID, Subscription ID)
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
       - name: 'Deploy to Azure Functions'
         uses: Azure/functions-action@v1
         id: deploy-to-function
