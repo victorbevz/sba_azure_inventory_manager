@@ -58,16 +58,17 @@ jobs:
 
       - name: Check Azure access
         run: |
-          echo "SUBSCRIPTION:"
-          az account show --query "{name:name,id:id}" -o table
+         az account show -o table
 
-          echo "FUNCTION APPS:"
-          az functionapp list \
-            --query "[].{name:name,rg:resourceGroup}" \
+          echo "CHECK FUNCTION:"
+          az functionapp show \
+            --name sba-inventory-api-viktorbevz \
+            --resource-group SBA-Project-RG \
             -o table
 
       - name: Deploy to Azure Functions
         uses: Azure/functions-action@v1
         with:
           app-name: sba-inventory-api-viktorbevz
+          resource-group-name: SBA-Project-RG
           package: .
