@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #93c5fd;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background: #3b82f6;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 14px;
+        }
+        button:hover:not(:disabled) { background: #2563eb; }
+        button:disabled { background: #475569; cursor: not-allowed; }
+        button.danger { background: #ef4444; }
+        button.danger:hover:not(:disabled) { background: #dc2626; }
+        button.success { background: #22c55e; }
+        button.success:hover:not(:disabled) { background: #16a34a; }
+        .card {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+        }
+        th { color: #93c5fd; }
+        .total-card {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .discount-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        input[type="number"] {
+            padding: 9px 14px;
+            border-radius: 8px;
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: #e2e8f0;
+            font-size: 14px;
+            width: 120px;
+        }
+        .msg {
+            padding: 10px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            display: none;
+            font-size: 14px;
+        }
+        .msg.error { background: #7f1d1d; border: 1px solid #ef4444; color: #fca5a5; }
+        .msg.success { background: #14532d; border: 1px solid #22c55e; color: #86efac; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📦 Inventory Dashboard</h1>
+
+    <div id="error-msg" class="msg error"></div>
+    <div id="success-msg" class="msg success"></div>
+
+    <div class="actions">
+        <button id="btn-load" onclick="loadProducts()">🔄 Refresh Products</button>
+        <button id="btn-total" onclick="loadTotal()">💰 Refresh Total</button>
+        <button id="btn-reset" class="danger" onclick="resetInventory()">↩ Reset Prices</button>
+    </div>
+
+    <div class="card">
+        <h2>Products</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Total Value</th>
+                </tr>
+            </thead>
+            <tbody id="products">
+                <tr><td colspan="4" style="color:#64748b;">Loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Apply Global Discount</h2>
+        <div class="discount-row">
+            <input type="number" id="discount-input" min="1" max="100" placeholder="e.g. 10" />
+            <span style="color:#94a3b8;">%</span>
+            <button id="btn-discount" class="success" onclick="applyDiscount()">✅ Apply Discount</button>
+        </div>
+    </div>
+
+    <div class="card total-card">
+        <p id="total">Total Value: loading...</p>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

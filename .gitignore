@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+antenv/
+*.egg-info/
+
+# Azure Functions local settings
+local.settings.json
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Zip artifacts
+*.zip
