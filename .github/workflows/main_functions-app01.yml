@@ -74,5 +74,4 @@ jobs:
         uses: Azure/functions-action@v1
         with:
           app-name: sba-inventory-api-viktorbevz
-          resource-group-name: SBA-Project-RG
-          package: .
+          package: release.zip
