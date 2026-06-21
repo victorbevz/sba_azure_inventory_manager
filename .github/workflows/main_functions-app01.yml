@@ -29,7 +29,7 @@ jobs:
       - name: Create deployment package
         run: |
           cd backend
-          zip -r ../release.zip . --exclude ".venv/*" --exclude "__pycache__/*" --exclude "*.pyc" --exclude "test_*.py"
+          zip -r ../release.zip .
 
       - uses: actions/upload-artifact@v4
         with:
@@ -57,5 +57,5 @@ jobs:
       uses: Azure/functions-action@v1
       with:
         # ОБЯЗАТЕЛЬНО проверьте, что здесь имя ВАШЕГО Function App с портала!
-        app-name: sba-inventory-api-viktorbevz
+        app-name: 'sba-inventory-api-viktorbevz'
         package: release.zip
