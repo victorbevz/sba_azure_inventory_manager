@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,8 +23,8 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_002544C916EC47CD8E54397E2A7855F8 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CA71D4BB8F684E3DAAFE18AF05F7CF8D }}
 
-      - name: Deploy to Azure Web App
+      - name: Deploy frontend
         uses: azure/webapps-deploy@v3
         with:
           app-name: sba-inventory-frontend-viktorbevz
-          package: frontend
+          package: ./frontend
