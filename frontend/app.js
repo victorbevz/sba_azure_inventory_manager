@@ -1,4 +1,4 @@
-const API = "https://functions-app01-b6gncbafdgfta9cs.italynorth-01.azurewebsites.net";
+const API = "sba-inventory-frontend-viktorbevz-aufaf9aza6hrdzhj.polandcentral-01.azurewebsites.net";
 
 function showError(message) {
     const el = document.getElementById("error-msg");
