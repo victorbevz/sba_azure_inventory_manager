@@ -22,7 +22,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install -r ./requirements.txt
+        run: pip install -r frontend/requirements.txt
 
       - name: Create deployment package
         run: |
@@ -35,15 +35,6 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_B2D2AD9F11C2489498AE3FCC98165B35 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_002544C916EC47CD8E54397E2A7855F8 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CA71D4BB8F684E3DAAFE18AF05F7CF8D }}
-
-      - name: Set startup command
-        uses: azure/CLI@v2
-        with:
-          inlineScript: |
-            az webapp config set \
-              --name sba-inventory-frontend-viktorbevz \
-              --resource-group SBA-Project-RG \
-              --startup-file "gunicorn --bind=0.0.0.0:8000 app:app"
 
       - name: Deploy frontend
         uses: azure/webapps-deploy@v3
