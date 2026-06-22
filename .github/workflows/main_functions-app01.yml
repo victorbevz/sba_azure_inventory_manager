@@ -56,19 +56,6 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_002544C916EC47CD8E54397E2A7855F8 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CA71D4BB8F684E3DAAFE18AF05F7CF8D }}
 
-      - name: Check Azure access
-        run: |
-          echo "SUBSCRIPTION"
-          az account show \
-            --query "{name:name,id:id}" \
-            -o json
-
-          echo "FUNCTION"
-          az functionapp show \
-            --name sba-inventory-api-viktorbevz \
-            --resource-group SBA-Project-RG \
-            --query "{name:name,location:location}" \
-            -o json
 
       - name: Deploy to Azure Functions
         uses: Azure/functions-action@v1
