@@ -16,6 +16,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          cd frontend
+          python -m venv antenv
+          source antenv/bin/activate
+          pip install -r requirements.txt
+
+      - name: Create deployment package
+        run: |
+          cd frontend
+          zip -r ../frontend.zip . --exclude "antenv/*" --exclude "__pycache__/*" --exclude "*.pyc"
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -23,8 +40,17 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_002544C916EC47CD8E54397E2A7855F8 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CA71D4BB8F684E3DAAFE18AF05F7CF8D }}
 
+      - name: Set startup command
+        uses: azure/CLI@v2
+        with:
+          inlineScript: |
+            az webapp config set \
+              --name sba-inventory-frontend-viktorbevz \
+              --resource-group SBA-Project-RG \
+              --startup-file "gunicorn --bind=0.0.0.0:8000 app:app"
+
       - name: Deploy frontend
         uses: azure/webapps-deploy@v3
         with:
           app-name: sba-inventory-frontend-viktorbevz
-          package: ./frontend
+          package: frontend.zip
